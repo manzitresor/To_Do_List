@@ -30,6 +30,7 @@ body {
 
 #loading {
   color: gray;
+  cursor: pointer;
 }
 
 #add-list-form {
