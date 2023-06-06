@@ -3,16 +3,15 @@ body {
 }
 
 .main-section {
-  background-color: rgb(233, 230, 230); 
+  background-color: rgb(233, 230, 230);
   width: 70%;
   margin: 10% 20%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .todo-container {
   background-color: white;
   padding: 10px;
-  
 }
 
 .heading-container {
@@ -38,7 +37,7 @@ body {
   display: flex;
 }
 
-#add-list-form input{
+#add-list-form input {
   width: 100%;
   padding: 10px;
   border: none;
@@ -52,11 +51,11 @@ body {
   cursor: pointer;
 }
 
-.task-container li{
+.task-container li {
   list-style: none;
 }
 
-.container  {
+.container {
   list-style: none;
   display: flex;
   justify-content: space-between;
