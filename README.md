@@ -53,6 +53,12 @@
     <li><a href="https://css-tricks.com/">CSS</a></li>
   </ul>
 </details>
+<details>
+  <summary>Functionality</summary>
+  <ul>
+    <li><a href="https://www.javascripttutorial.net/">Javascript</a></li>
+  </ul>
+</details>
 
 <!-- Features -->
 
