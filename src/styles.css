@@ -1,3 +1,65 @@
 body {
-  background-color: gainsboro;
+  background-color: rgb(233, 230, 230);
+}
+
+.todo-container {
+  background-color: white;
+  width: 70%;
+  margin: 10% 20%;
+  padding: 10px;
+}
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto 10px;
+}
+
+.heading {
+  color: gray;
+  font-size: 30px;
+  letter-spacing: 8px;
+}
+
+#loading {
+  color: gray;
+}
+
+#add-list-form {
+  background-color: white;
+  display: flex;
+}
+
+#add-list-form input{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  font-size: 18px;
+  outline: none;
+}
+
+.btn {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.task-container li{
+  list-style: none;
+}
+
+.container  {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 9px;
+}
+
+.descr {
+  font-size: 18px;
+}
+
+.icon-container {
+  color: gray;
 }
