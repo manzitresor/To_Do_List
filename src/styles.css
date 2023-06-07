@@ -64,6 +64,8 @@ body {
 
 .descr {
   font-size: 18px;
+  outline: none;
+  border: none;
 }
 
 .icon-container {
@@ -75,4 +77,14 @@ body {
   text-align: center;
   font-size: 20px;
   padding: 5px;
+}
+
+.remove-button {
+  color: rgb(220, 7, 7);
+  display: none;
+  cursor: pointer;
+}
+
+.edit-btn {
+  cursor: pointer;
 }
