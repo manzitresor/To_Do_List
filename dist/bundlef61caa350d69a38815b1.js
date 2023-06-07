@@ -2,6 +2,41 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/StoreList.js":
+/*!**************************!*\
+  !*** ./src/StoreList.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var tasks = [{
+  descr: 'wash the dishes',
+  completed: true,
+  index: 1
+}, {
+  descr: 'complete To Do list Project',
+  completed: false,
+  index: 2
+}];
+var taskContainer = document.querySelector('.task-container');
+function DisplayTask() {
+  taskContainer.innerHTML = '';
+  var sortedTasks = tasks.sort(function (x, y) {
+    return x.index - y.index;
+  });
+  sortedTasks.forEach(function (task) {
+    var listItem = document.createElement('li');
+    listItem.innerHTML = "\n              <div class= \"container\">\n              <div class='task-content'>\n              <input type=\"checkbox\" id=\"task-".concat(task.index, "\" ").concat(task.completed ? 'checked' : '', ">\n              <label for=\"task-").concat(task.index, "\" class=\"descr\">").concat(task.descr, "</label>\n              </div>\n              <div class=\"icon-container\">\n              <i class=\"fas fa-ellipsis-v\"></i>\n              </div>\n              </div>\n              <hr>\n    ");
+    taskContainer.appendChild(listItem);
+  });
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DisplayTask);
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles.css":
 /*!*****************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/styles.css ***!
@@ -22,8 +57,83 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `body {
-  background-color: red;
-}`, "",{"version":3,"sources":["webpack://./src/styles.css"],"names":[],"mappings":"AAAA;EACE,qBAAA;AACF","sourcesContent":["body {\r\n  background-color: red;\r\n}\r\n"],"sourceRoot":""}]);
+  background-color: rgb(233, 230, 230);
+}
+
+.main-section {
+  background-color: rgb(233, 230, 230);
+  width: 70%;
+  margin: 10% 20%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.todo-container {
+  background-color: white;
+  padding: 10px;
+}
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto 10px;
+}
+
+.heading {
+  color: gray;
+  font-size: 30px;
+  letter-spacing: 8px;
+}
+
+#loading {
+  color: gray;
+  cursor: pointer;
+}
+
+#add-list-form {
+  background-color: white;
+  display: flex;
+}
+
+#add-list-form input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  font-size: 18px;
+  outline: none;
+}
+
+.btn {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.task-container li {
+  list-style: none;
+}
+
+.container {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 9px;
+}
+
+.descr {
+  font-size: 18px;
+}
+
+.icon-container {
+  color: gray;
+}
+
+.completed {
+  background-color: rgb(233, 230, 230);
+  text-align: center;
+  font-size: 20px;
+  padding: 5px;
+}`, "",{"version":3,"sources":["webpack://./src/styles.css"],"names":[],"mappings":"AAAA;EACE,oCAAA;AACF;;AAEA;EACE,oCAAA;EACA,UAAA;EACA,eAAA;EACA,0CAAA;AACF;;AAEA;EACE,uBAAA;EACA,aAAA;AACF;;AAEA;EACE,aAAA;EACA,8BAAA;EACA,mBAAA;EACA,iBAAA;AACF;;AAEA;EACE,WAAA;EACA,eAAA;EACA,mBAAA;AACF;;AAEA;EACE,WAAA;EACA,eAAA;AACF;;AAEA;EACE,uBAAA;EACA,aAAA;AACF;;AAEA;EACE,WAAA;EACA,aAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;AACF;;AAEA;EACE,uBAAA;EACA,YAAA;EACA,eAAA;AACF;;AAEA;EACE,gBAAA;AACF;;AAEA;EACE,gBAAA;EACA,aAAA;EACA,8BAAA;EACA,WAAA;AACF;;AAEA;EACE,eAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,oCAAA;EACA,kBAAA;EACA,eAAA;EACA,YAAA;AACF","sourcesContent":["body {\r\n  background-color: rgb(233, 230, 230);\r\n}\r\n\r\n.main-section {\r\n  background-color: rgb(233, 230, 230);\r\n  width: 70%;\r\n  margin: 10% 20%;\r\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n.todo-container {\r\n  background-color: white;\r\n  padding: 10px;\r\n}\r\n\r\n.heading-container {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin: auto 10px;\r\n}\r\n\r\n.heading {\r\n  color: gray;\r\n  font-size: 30px;\r\n  letter-spacing: 8px;\r\n}\r\n\r\n#loading {\r\n  color: gray;\r\n  cursor: pointer;\r\n}\r\n\r\n#add-list-form {\r\n  background-color: white;\r\n  display: flex;\r\n}\r\n\r\n#add-list-form input {\r\n  width: 100%;\r\n  padding: 10px;\r\n  border: none;\r\n  font-size: 18px;\r\n  outline: none;\r\n}\r\n\r\n.btn {\r\n  background-color: white;\r\n  border: none;\r\n  cursor: pointer;\r\n}\r\n\r\n.task-container li {\r\n  list-style: none;\r\n}\r\n\r\n.container {\r\n  list-style: none;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 9px;\r\n}\r\n\r\n.descr {\r\n  font-size: 18px;\r\n}\r\n\r\n.icon-container {\r\n  color: gray;\r\n}\r\n\r\n.completed {\r\n  background-color: rgb(233, 230, 230);\r\n  text-align: center;\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -551,9 +661,12 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ "./src/styles.css");
+/* harmony import */ var _StoreList_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StoreList.js */ "./src/StoreList.js");
 
+
+(0,_StoreList_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle846b73238fe258bf2cd1.js.map
+//# sourceMappingURL=bundlef61caa350d69a38815b1.js.map
