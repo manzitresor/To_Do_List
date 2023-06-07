@@ -10,30 +10,46 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   DisplayTask: () => (/* binding */ DisplayTask),
+/* harmony export */   addtask: () => (/* binding */ addtask),
+/* harmony export */   deleteTask: () => (/* binding */ deleteTask)
 /* harmony export */ });
-var tasks = [{
-  descr: 'wash the dishes',
-  completed: true,
-  index: 1
-}, {
-  descr: 'complete To Do list Project',
-  completed: false,
-  index: 2
-}];
 var taskContainer = document.querySelector('.task-container');
+var descr = document.querySelector('#addTask');
+function Tasks(index, descr, completed) {
+  this.index = index;
+  this.descr = descr;
+  this.completed = completed;
+}
+var todotasks = localStorage.getItem('todotasks');
+var taskarr = todotasks ? JSON.parse(todotasks) : [];
+// Adding task
+function addtask() {
+  var description = descr.value;
+  var tasks = new Tasks(taskarr.length, description, false);
+  taskarr.push(tasks);
+  localStorage.setItem('todotasks', JSON.stringify(taskarr));
+  descr.value = '';
+}
+// Displaying Tasks
 function DisplayTask() {
   taskContainer.innerHTML = '';
-  var sortedTasks = tasks.sort(function (x, y) {
+  var sortedTasks = taskarr.sort(function (x, y) {
     return x.index - y.index;
   });
   sortedTasks.forEach(function (task) {
     var listItem = document.createElement('li');
-    listItem.innerHTML = "\n              <div class= \"container\">\n              <div class='task-content'>\n              <input type=\"checkbox\" id=\"task-".concat(task.index, "\" ").concat(task.completed ? 'checked' : '', ">\n              <label for=\"task-").concat(task.index, "\" class=\"descr\">").concat(task.descr, "</label>\n              </div>\n              <div class=\"icon-container\">\n              <i class=\"fas fa-ellipsis-v\"></i>\n              </div>\n              </div>\n              <hr>\n    ");
+    listItem.innerHTML = "\n              <div class= \"container\">\n              <div class='task-content'>\n              <input type=\"checkbox\" id=\"task-".concat(task.index, "\" ").concat(task.completed ? 'checked' : '', ">\n              <label for=\"task-").concat(task.index, "\" class=\"descr\">").concat(task.descr, "</label>\n              </div>\n              <div class=\"icon-container\">\n              <i class=\"fas fa-ellipsis-v\" class=\"remove\"></i>\n              </div>\n              </div>\n              <hr>\n    ");
     taskContainer.appendChild(listItem);
   });
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DisplayTask);
+// remove task
+function deleteTask(index) {
+  var tasks = taskarr;
+  tasks.splice(index, 1);
+  localStorage.setItem('todotasks', JSON.stringify(tasks));
+}
+
 
 /***/ }),
 
@@ -664,9 +680,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _StoreList_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StoreList.js */ "./src/StoreList.js");
 
 
-(0,_StoreList_js__WEBPACK_IMPORTED_MODULE_1__["default"])();
+var formBtn = document.querySelector('.btn');
+formBtn.addEventListener('click', function (event) {
+  event.preventDefault();
+  (0,_StoreList_js__WEBPACK_IMPORTED_MODULE_1__.addtask)();
+  (0,_StoreList_js__WEBPACK_IMPORTED_MODULE_1__.DisplayTask)();
+});
+(0,_StoreList_js__WEBPACK_IMPORTED_MODULE_1__.DisplayTask)();
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundlef61caa350d69a38815b1.js.map
+//# sourceMappingURL=bundledeeb8839159873905548.js.map
