@@ -1,5 +1,5 @@
 import './styles.css';
-import { DisplayTask, addtask } from './StoreList.js';
+import { DisplayTask, addtask } from './functionality.js';
 
 const formBtn = document.querySelector('.btn');
 

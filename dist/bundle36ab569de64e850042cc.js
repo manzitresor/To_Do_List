@@ -2,17 +2,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/StoreList.js":
-/*!**************************!*\
-  !*** ./src/StoreList.js ***!
-  \**************************/
+/***/ "./src/functionality.js":
+/*!******************************!*\
+  !*** ./src/functionality.js ***!
+  \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   DisplayTask: () => (/* binding */ DisplayTask),
-/* harmony export */   addtask: () => (/* binding */ addtask),
-/* harmony export */   deleteTask: () => (/* binding */ deleteTask)
+/* harmony export */   addtask: () => (/* binding */ addtask)
 /* harmony export */ });
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -746,18 +745,18 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ "./src/styles.css");
-/* harmony import */ var _StoreList_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StoreList.js */ "./src/StoreList.js");
+/* harmony import */ var _functionality_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functionality.js */ "./src/functionality.js");
 
 
 var formBtn = document.querySelector('.btn');
 formBtn.addEventListener('click', function (event) {
   event.preventDefault();
-  (0,_StoreList_js__WEBPACK_IMPORTED_MODULE_1__.addtask)();
-  (0,_StoreList_js__WEBPACK_IMPORTED_MODULE_1__.DisplayTask)();
+  (0,_functionality_js__WEBPACK_IMPORTED_MODULE_1__.addtask)();
+  (0,_functionality_js__WEBPACK_IMPORTED_MODULE_1__.DisplayTask)();
 });
-(0,_StoreList_js__WEBPACK_IMPORTED_MODULE_1__.DisplayTask)();
+(0,_functionality_js__WEBPACK_IMPORTED_MODULE_1__.DisplayTask)();
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundlec814c8fc01afd193e58d.js.map
+//# sourceMappingURL=bundle36ab569de64e850042cc.js.map
