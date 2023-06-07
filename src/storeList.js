@@ -97,4 +97,4 @@ function updateTask(index, newDescription) {
   }
 }
 
-export { DisplayTask, addtask, deleteTask };
+export { DisplayTask, addtask };
