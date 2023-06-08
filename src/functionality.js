@@ -95,5 +95,15 @@ function updateTask(index, newDescription) {
     DisplayTask();
   }
 }
+// ADD NEW LIST EVENT
+const formBtn = document.querySelector('.btn');
 
-export { DisplayTask, addtask };
+formBtn.addEventListener('click', (event) => {
+  event.preventDefault();
+  addtask();
+  DisplayTask();
+});
+
+DisplayTask();
+
+export { DisplayTask, taskarr };
