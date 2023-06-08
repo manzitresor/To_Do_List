@@ -1,12 +1,6 @@
 import './styles.css';
-import { DisplayTask, addtask } from './functionality.js';
+import * as functionality from './functionality.js';
+import * as taskcomplited from './completed.js';
 
-const formBtn = document.querySelector('.btn');
-
-formBtn.addEventListener('click', (event) => {
-  event.preventDefault();
-  addtask();
-  DisplayTask();
-});
-
-DisplayTask();
+functionality();
+taskcomplited();
