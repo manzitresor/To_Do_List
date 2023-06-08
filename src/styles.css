@@ -79,6 +79,10 @@ body {
   padding: 5px;
 }
 
+.clear {
+  cursor: pointer;
+}
+
 .remove-button {
   color: rgb(220, 7, 7);
   display: none;
