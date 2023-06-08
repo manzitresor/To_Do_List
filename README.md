@@ -70,7 +70,7 @@
 
 ### Live Demo <a name="live-demo"></a>
 
-<a href="https://manzitresor.github.io/To_Do_List/dist">click for Live demo</a>
+Live Demo Link: <a href="https://manzitresor.github.io/To_Do_List/dist">To_Do_List</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
