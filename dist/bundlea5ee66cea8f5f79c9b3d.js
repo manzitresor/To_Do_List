@@ -2,6 +2,51 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/completed.js":
+/*!**************************!*\
+  !*** ./src/completed.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functionality_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functionality.js */ "./src/functionality.js");
+// app.js
+
+var taskContainer = document.querySelector('.task-container');
+var clearComplitedTask = document.querySelector('#clearCompleted');
+taskContainer.addEventListener('change', function (event) {
+  event.preventDefault();
+  var checkbox = event.target;
+  var dataIndex = checkbox.id.split('-')[1];
+  var taskIndex = parseInt(dataIndex, 10);
+  // eslint-disable-next-line no-use-before-define
+  updateCompleted(taskIndex, checkbox.checked);
+});
+function updateCompleted(index, completed) {
+  var task = _functionality_js__WEBPACK_IMPORTED_MODULE_0__.taskarr.find(function (element) {
+    return element.index === index;
+  });
+  if (task) {
+    task.completed = completed;
+    localStorage.setItem('todotasks', JSON.stringify(_functionality_js__WEBPACK_IMPORTED_MODULE_0__.taskarr));
+  }
+}
+clearComplitedTask.addEventListener('click', function (event) {
+  event.preventDefault();
+  var updatedTask = _functionality_js__WEBPACK_IMPORTED_MODULE_0__.taskarr.filter(function (task) {
+    return !task.completed;
+  });
+  _functionality_js__WEBPACK_IMPORTED_MODULE_0__.taskarr.length = 0;
+  updatedTask.forEach(function (task, index) {
+    task.index = index + 1;
+    _functionality_js__WEBPACK_IMPORTED_MODULE_0__.taskarr.push(task);
+  });
+  localStorage.setItem('todotasks', JSON.stringify(_functionality_js__WEBPACK_IMPORTED_MODULE_0__.taskarr));
+  (0,_functionality_js__WEBPACK_IMPORTED_MODULE_0__.DisplayTask)();
+});
+
+/***/ }),
+
 /***/ "./src/functionality.js":
 /*!******************************!*\
   !*** ./src/functionality.js ***!
@@ -11,14 +56,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   DisplayTask: () => (/* binding */ DisplayTask),
-/* harmony export */   addtask: () => (/* binding */ addtask)
+/* harmony export */   taskarr: () => (/* binding */ taskarr)
 /* harmony export */ });
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+/* eslint-disable no-use-before-define */
 var taskContainer = document.querySelector('.task-container');
 var descr = document.querySelector('#addTask');
 function Tasks(index, descr, completed) {
@@ -28,14 +68,16 @@ function Tasks(index, descr, completed) {
 }
 var todotasks = localStorage.getItem('todotasks');
 var taskarr = todotasks ? JSON.parse(todotasks) : [];
+
 // Adding task
 function addtask() {
   var description = descr.value;
-  var tasks = new Tasks(taskarr.length, description, false);
+  var tasks = new Tasks(taskarr.length + 1, description, false);
   taskarr.push(tasks);
   localStorage.setItem('todotasks', JSON.stringify(taskarr));
   descr.value = '';
 }
+
 // Displaying Tasks
 function DisplayTask() {
   taskContainer.innerHTML = '';
@@ -44,9 +86,9 @@ function DisplayTask() {
   });
   sortedTasks.forEach(function (task) {
     var listItem = document.createElement('li');
-    listItem.innerHTML = "\n              <div class= \"container\">\n              <div class='task-content'>\n              <input type=\"checkbox\" id=\"task-".concat(task.index, "\" ").concat(task.completed ? 'checked' : '', ">\n              <input class=\"descr\" value=\"").concat(task.descr, "\" ").concat(task.completed ? 'disabled' : '', ">\n              </div>\n              <div class=\"icon-container\">\n              <i class=\"fas fa-ellipsis-v edit-btn\" ></i>\n              <i class=\"fas fa-trash-alt remove-button\" id=\"").concat(task.index, "\"></i>\n              </div>\n              </div>\n              <hr>\n    ");
+    listItem.innerHTML = "\n      <div class=\"container\">\n        <div class='task-content'>\n          <input type=\"checkbox\" id=\"task-".concat(task.index, "\" ").concat(task.completed ? 'checked' : '', ">\n          <input class=\"descr\" value=\"").concat(task.descr, "\" ").concat(task.completed ? 'disabled' : '', ">\n        </div>\n        <div class=\"icon-container\">\n          <i class=\"fas fa-ellipsis-v edit-btn\"></i>\n          <i class=\"fas fa-trash-alt remove-button\" id=\"").concat(task.index, "\"></i>\n        </div>\n      </div>\n      <hr>\n    ");
     taskContainer.appendChild(listItem);
-    var editIcon = listItem.querySelector('.fa-ellipsis-v');
+    var editIcon = listItem.querySelector('.edit-btn');
     var descriptionInput = listItem.querySelector('.descr');
     var removeButton = listItem.querySelector('.remove-button');
     editIcon.addEventListener('click', function () {
@@ -64,37 +106,33 @@ function DisplayTask() {
     });
     descriptionInput.addEventListener('blur', function () {
       var newDescription = descriptionInput.value;
-      var dataIndex = listItem.querySelector('.remove-button').getAttribute('id');
+      var dataIndex = removeButton.getAttribute('id');
       var taskIndex = parseInt(dataIndex, 10);
-      // eslint-disable-next-line no-use-before-define
       updateTask(taskIndex, newDescription);
     });
-
-    // removing event
     removeButton.addEventListener('click', function () {
       var dataIndex = removeButton.getAttribute('id');
       var taskIndex = parseInt(dataIndex, 10);
-      // eslint-disable-next-line no-use-before-define
       deleteTask(taskIndex);
     });
   });
 }
 
-// remove task
+// Remove task
 function deleteTask(index) {
   var newArr = taskarr.filter(function (element) {
     return element.index !== index;
   });
   taskarr.length = 0;
-  var i = 0;
-  newArr.forEach(function (element) {
-    element.index = i;
-    i += 1;
+  newArr.forEach(function (element, i) {
+    element.index = i + 1;
+    taskarr.push(element);
   });
-  taskarr.push.apply(taskarr, _toConsumableArray(newArr));
   localStorage.setItem('todotasks', JSON.stringify(taskarr));
   DisplayTask();
 }
+
+// Update task description
 function updateTask(index, newDescription) {
   var task = taskarr.find(function (element) {
     return element.index === index;
@@ -105,6 +143,14 @@ function updateTask(index, newDescription) {
     DisplayTask();
   }
 }
+// ADD NEW LIST EVENT
+var formBtn = document.querySelector('.btn');
+formBtn.addEventListener('click', function (event) {
+  event.preventDefault();
+  addtask();
+  DisplayTask();
+});
+DisplayTask();
 
 
 /***/ }),
@@ -209,6 +255,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   padding: 5px;
 }
 
+.clear {
+  cursor: pointer;
+}
+
 .remove-button {
   color: rgb(220, 7, 7);
   display: none;
@@ -217,7 +267,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
 
 .edit-btn {
   cursor: pointer;
-}`, "",{"version":3,"sources":["webpack://./src/styles.css"],"names":[],"mappings":"AAAA;EACE,oCAAA;AACF;;AAEA;EACE,oCAAA;EACA,UAAA;EACA,eAAA;EACA,0CAAA;AACF;;AAEA;EACE,uBAAA;EACA,aAAA;AACF;;AAEA;EACE,aAAA;EACA,8BAAA;EACA,mBAAA;EACA,iBAAA;AACF;;AAEA;EACE,WAAA;EACA,eAAA;EACA,mBAAA;AACF;;AAEA;EACE,WAAA;EACA,eAAA;AACF;;AAEA;EACE,uBAAA;EACA,aAAA;AACF;;AAEA;EACE,WAAA;EACA,aAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;AACF;;AAEA;EACE,uBAAA;EACA,YAAA;EACA,eAAA;AACF;;AAEA;EACE,gBAAA;AACF;;AAEA;EACE,gBAAA;EACA,aAAA;EACA,8BAAA;EACA,WAAA;AACF;;AAEA;EACE,eAAA;EACA,aAAA;EACA,YAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,oCAAA;EACA,kBAAA;EACA,eAAA;EACA,YAAA;AACF;;AAEA;EACE,qBAAA;EACA,aAAA;EACA,eAAA;AACF;;AAEA;EACE,eAAA;AACF","sourcesContent":["body {\r\n  background-color: rgb(233, 230, 230);\r\n}\r\n\r\n.main-section {\r\n  background-color: rgb(233, 230, 230);\r\n  width: 70%;\r\n  margin: 10% 20%;\r\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n.todo-container {\r\n  background-color: white;\r\n  padding: 10px;\r\n}\r\n\r\n.heading-container {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin: auto 10px;\r\n}\r\n\r\n.heading {\r\n  color: gray;\r\n  font-size: 30px;\r\n  letter-spacing: 8px;\r\n}\r\n\r\n#loading {\r\n  color: gray;\r\n  cursor: pointer;\r\n}\r\n\r\n#add-list-form {\r\n  background-color: white;\r\n  display: flex;\r\n}\r\n\r\n#add-list-form input {\r\n  width: 100%;\r\n  padding: 10px;\r\n  border: none;\r\n  font-size: 18px;\r\n  outline: none;\r\n}\r\n\r\n.btn {\r\n  background-color: white;\r\n  border: none;\r\n  cursor: pointer;\r\n}\r\n\r\n.task-container li {\r\n  list-style: none;\r\n}\r\n\r\n.container {\r\n  list-style: none;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 9px;\r\n}\r\n\r\n.descr {\r\n  font-size: 18px;\r\n  outline: none;\r\n  border: none;\r\n}\r\n\r\n.icon-container {\r\n  color: gray;\r\n}\r\n\r\n.completed {\r\n  background-color: rgb(233, 230, 230);\r\n  text-align: center;\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n.remove-button {\r\n  color: rgb(220, 7, 7);\r\n  display: none;\r\n  cursor: pointer;\r\n}\r\n\r\n.edit-btn {\r\n  cursor: pointer;\r\n}\r\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/styles.css"],"names":[],"mappings":"AAAA;EACE,oCAAA;AACF;;AAEA;EACE,oCAAA;EACA,UAAA;EACA,eAAA;EACA,0CAAA;AACF;;AAEA;EACE,uBAAA;EACA,aAAA;AACF;;AAEA;EACE,aAAA;EACA,8BAAA;EACA,mBAAA;EACA,iBAAA;AACF;;AAEA;EACE,WAAA;EACA,eAAA;EACA,mBAAA;AACF;;AAEA;EACE,WAAA;EACA,eAAA;AACF;;AAEA;EACE,uBAAA;EACA,aAAA;AACF;;AAEA;EACE,WAAA;EACA,aAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;AACF;;AAEA;EACE,uBAAA;EACA,YAAA;EACA,eAAA;AACF;;AAEA;EACE,gBAAA;AACF;;AAEA;EACE,gBAAA;EACA,aAAA;EACA,8BAAA;EACA,WAAA;AACF;;AAEA;EACE,eAAA;EACA,aAAA;EACA,YAAA;AACF;;AAEA;EACE,WAAA;AACF;;AAEA;EACE,oCAAA;EACA,kBAAA;EACA,eAAA;EACA,YAAA;AACF;;AAEA;EACE,eAAA;AACF;;AAEA;EACE,qBAAA;EACA,aAAA;EACA,eAAA;AACF;;AAEA;EACE,eAAA;AACF","sourcesContent":["body {\r\n  background-color: rgb(233, 230, 230);\r\n}\r\n\r\n.main-section {\r\n  background-color: rgb(233, 230, 230);\r\n  width: 70%;\r\n  margin: 10% 20%;\r\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n.todo-container {\r\n  background-color: white;\r\n  padding: 10px;\r\n}\r\n\r\n.heading-container {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: center;\r\n  margin: auto 10px;\r\n}\r\n\r\n.heading {\r\n  color: gray;\r\n  font-size: 30px;\r\n  letter-spacing: 8px;\r\n}\r\n\r\n#loading {\r\n  color: gray;\r\n  cursor: pointer;\r\n}\r\n\r\n#add-list-form {\r\n  background-color: white;\r\n  display: flex;\r\n}\r\n\r\n#add-list-form input {\r\n  width: 100%;\r\n  padding: 10px;\r\n  border: none;\r\n  font-size: 18px;\r\n  outline: none;\r\n}\r\n\r\n.btn {\r\n  background-color: white;\r\n  border: none;\r\n  cursor: pointer;\r\n}\r\n\r\n.task-container li {\r\n  list-style: none;\r\n}\r\n\r\n.container {\r\n  list-style: none;\r\n  display: flex;\r\n  justify-content: space-between;\r\n  margin: 9px;\r\n}\r\n\r\n.descr {\r\n  font-size: 18px;\r\n  outline: none;\r\n  border: none;\r\n}\r\n\r\n.icon-container {\r\n  color: gray;\r\n}\r\n\r\n.completed {\r\n  background-color: rgb(233, 230, 230);\r\n  text-align: center;\r\n  font-size: 20px;\r\n  padding: 5px;\r\n}\r\n\r\n.clear {\r\n  cursor: pointer;\r\n}\r\n\r\n.remove-button {\r\n  color: rgb(220, 7, 7);\r\n  display: none;\r\n  cursor: pointer;\r\n}\r\n\r\n.edit-btn {\r\n  cursor: pointer;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -746,17 +796,14 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles.css */ "./src/styles.css");
 /* harmony import */ var _functionality_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./functionality.js */ "./src/functionality.js");
+/* harmony import */ var _completed_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./completed.js */ "./src/completed.js");
 
 
-var formBtn = document.querySelector('.btn');
-formBtn.addEventListener('click', function (event) {
-  event.preventDefault();
-  (0,_functionality_js__WEBPACK_IMPORTED_MODULE_1__.addtask)();
-  (0,_functionality_js__WEBPACK_IMPORTED_MODULE_1__.DisplayTask)();
-});
-(0,_functionality_js__WEBPACK_IMPORTED_MODULE_1__.DisplayTask)();
+
+_functionality_js__WEBPACK_IMPORTED_MODULE_1__();
+_completed_js__WEBPACK_IMPORTED_MODULE_2__();
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle36ab569de64e850042cc.js.map
+//# sourceMappingURL=bundlea5ee66cea8f5f79c9b3d.js.map
